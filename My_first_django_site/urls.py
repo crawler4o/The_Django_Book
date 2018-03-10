@@ -20,10 +20,12 @@ from django.urls import re_path
 from My_first_django_site.views import hello
 from My_first_django_site.views import time_cur
 from My_first_django_site.views import time_add
+from My_first_django_site.views import time_now
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     re_path(r'^hello/$', hello),
     re_path(r'^time/$', time_cur),
     re_path(r'^time/plus/(\d{1,2})/$', time_add),
+    re_path(r'^time/new$', time_now),
 ]
