@@ -31,4 +31,3 @@ def time_now(request):
     html = t.render({'current_date':now})
 
     return HttpResponse(html)
-#test_com
