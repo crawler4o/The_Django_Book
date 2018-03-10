@@ -1,5 +1,7 @@
 from django.http import HttpResponse, Http404
 from django.template.loader import get_template
+from django.shortcuts import render
+
 import datetime
 
 
@@ -8,11 +10,11 @@ def hello(request):
     return HttpResponse('Hello World!')
 
 
-def time_cur(request):
+def time_one(request):
     return HttpResponse('The current time is %s' % datetime.datetime.now().time())
 
 
-def time_add(request, offset):
+def time_one_plus(request, offset):
     try:
         offset = int(offset)
     except ValueError:
@@ -25,9 +27,27 @@ def time_add(request, offset):
     return HttpResponse(ret_resp)
 
 
-def time_now(request):
+def time_two(request):
     now = datetime.datetime.now()
     t = get_template('current_datetime.html')
     html = t.render({'current_date':now})
 
     return HttpResponse(html)
+
+
+def time_three(request):
+    now = datetime.datetime.now()
+
+    return render(request, 'current_datetime.html', {'current_date':now})
+
+
+def time_two_plus(request, offset):
+    try:
+        offset = int(offset)
+    except ValueError:
+            raise Http404()
+
+    now = datetime.datetime.now()
+    future = now + datetime.timedelta(hours = offset)
+
+    return render(request, 'hours_ahead.html', {'now':now, 'future':future, 'offset':offset})

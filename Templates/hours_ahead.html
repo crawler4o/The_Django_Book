@@ -1,0 +1,5 @@
+{% extends 'base.html' %}
+{% block title %} The time in {{offset}} hours {% endblock %}
+{% block content %}
+  <p>Now is {{now}}. In {{offset}} hours will be {{future}}.</p>
+{% endblock %}

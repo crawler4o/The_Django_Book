@@ -18,14 +18,18 @@ from django.urls import path
 from django.urls import re_path
 
 from My_first_django_site.views import hello
-from My_first_django_site.views import time_cur
-from My_first_django_site.views import time_add
-from My_first_django_site.views import time_now
+from My_first_django_site.views import time_one
+from My_first_django_site.views import time_one_plus
+from My_first_django_site.views import time_two
+from My_first_django_site.views import time_three
+from My_first_django_site.views import time_two_plus
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     re_path(r'^hello/$', hello),
-    re_path(r'^time/$', time_cur),
-    re_path(r'^time/plus/(\d{1,2})/$', time_add),
-    re_path(r'^time/new$', time_now),
+    re_path(r'^time/one$', time_one),
+    re_path(r'^time/one/plus/(\d{1,2})/$', time_one_plus),
+    re_path(r'^time/two$', time_two),
+    re_path(r'^time/three$', time_three),
+    re_path(r'^time/two/plus/(\d{1,2})/$', time_two_plus),
 ]
