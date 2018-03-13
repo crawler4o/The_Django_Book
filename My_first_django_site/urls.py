@@ -14,8 +14,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from django.urls import re_path
+from django.urls import path, re_path
+from django.urls import include
 
 from My_first_django_site.views import hello
 from My_first_django_site.views import time_one
@@ -23,6 +23,7 @@ from My_first_django_site.views import time_one_plus
 from My_first_django_site.views import time_two
 from My_first_django_site.views import time_three
 from My_first_django_site.views import time_two_plus
+from My_first_django_site.views import request_meta
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,4 +33,6 @@ urlpatterns = [
     re_path(r'^time/two$', time_two),
     re_path(r'^time/three$', time_three),
     re_path(r'^time/two/plus/(\d{1,2})/$', time_two_plus),
+    re_path(r'^meta/$', request_meta),
+    re_path(r'^', include('books.urls')),
 ]

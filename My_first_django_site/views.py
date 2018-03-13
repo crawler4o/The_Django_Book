@@ -51,3 +51,15 @@ def time_two_plus(request, offset):
     future = now + datetime.timedelta(hours = offset)
 
     return render(request, 'hours_ahead.html', {'now':now, 'future':future, 'offset':offset})
+
+
+def request_meta(request):
+    try:
+        values = request.META
+        html = []
+        for x in sorted(values):
+            html.append('<tr><td>%s</td><td>%s</td></tr>' % (x, values[x]))
+
+        return HttpResponse('<table>%s</table>' % '\n'.join(html))
+    except:
+        return HttpResponse('Sorry, no meta data is available.')
