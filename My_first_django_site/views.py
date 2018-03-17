@@ -1,9 +1,9 @@
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.template.loader import get_template
 from django.shortcuts import render
-
 import datetime
-
+from My_first_django_site.forms import ContactForm
+from django.core.mail import send_mail, get_connection
 
 
 def hello(request):
@@ -63,3 +63,29 @@ def request_meta(request):
         return HttpResponse('<table>%s</table>' % '\n'.join(html))
     except:
         return HttpResponse('Sorry, no meta data is available.')
+
+
+def contact(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            con = get_connection('django.core.mail.backends.console.EmailBackend')
+            send_mail(
+                cd['subject'],
+                cd['message'],
+                cd.get('email', 'noreplay@example.com'),
+                ['siteowner@example.com'],
+                connection = con
+            )
+            return HttpResponseRedirect('/contact/thanks')
+    else:
+        form = ContactForm(
+            initial={'subject':'I love you site!'}
+        )
+
+    return render(request, 'contact_form.html', {'form':form})
+
+
+def contact_thanks(request):
+    return render(request, 'thank_you.html')

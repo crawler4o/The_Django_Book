@@ -24,6 +24,8 @@ from My_first_django_site.views import time_two
 from My_first_django_site.views import time_three
 from My_first_django_site.views import time_two_plus
 from My_first_django_site.views import request_meta
+from My_first_django_site.views import contact
+from My_first_django_site.views import contact_thanks
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -34,5 +36,7 @@ urlpatterns = [
     re_path(r'^time/three$', time_three),
     re_path(r'^time/two/plus/(\d{1,2})/$', time_two_plus),
     re_path(r'^meta/$', request_meta),
+    re_path(r'^contact/$', contact),
+    re_path(r'^contact/thanks/$', contact_thanks),
     re_path(r'^', include('books.urls')),
 ]

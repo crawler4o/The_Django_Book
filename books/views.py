@@ -10,12 +10,15 @@ from books.models import Book
 
 
 def search(request):
-    try:
-        if request.GET['q'] and 'q' in request.GET:
-            q = request.GET['q']
-            books = Book.objects.filter(title__icontains=q)
-            return render(request, 'books/search_results.html', {'books':books, 'book':q})
-        elif not request.GET['q']:
-            return render(request, 'books/search_form.html', {'error':True})
-    except:
-        return render(request, 'books/search_form.html')
+    errors = []
+
+    if 'q' in request.GET:
+        q = request.GET['q']
+        if not q:
+            errors.append('Please enter a search criteria.')
+        elif len(q)>31:
+           errors.append('The search criteria cannot exceed 30 symbols.')
+        else:
+           books = Book.objects.filter(title__icontains=q)
+           return render(request, 'books/search_results.html', {'books':books, 'book':q})
+    return render(request, 'books/search_form.html', {'errors':errors})

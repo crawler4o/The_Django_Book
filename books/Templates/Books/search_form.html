@@ -4,9 +4,9 @@
   <title>Search</title>
 </head>
 <body>
-  {% if error %}
-    <h1 style='color: red;'><strong>You've entered an empty string. Please try again</strong></h1>
-  {% endif %}
+  {% for error in errors %}
+    <h2 style='color: red;'><strong>{{error}}</strong></h2>
+  {% endfor %}
   <form action="" method='get'>
     <input type='text' name='q'>
     <input type='submit' value='Search'>
